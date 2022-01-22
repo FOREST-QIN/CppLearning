@@ -3,35 +3,39 @@
 #include<cstring>
 #include<string>
 
-#define PI 3.1416
 using namespace std;
 
-class Rectangle {
+class Solution {
+	// 1.22
  public:
-  int length;
-  int breath;
+	int lengthOfLongestSubstring(string s) {
+		/*
+		 * sliding window, O(n), O(1)
+		 */
+		int window[256] = {};
+		int left = 0;
+		int right = 0;
+		int res = 0;
 
-  int area() {
-	return length * breath;
-  }
+		while (right < s.size()) {
+			char r = s[right];
+			window[r]++;
+			r++;
 
-  int perimeter() {
-	return 2 * (length + breath);
-  }
-
+			while (window[r] > 1) {
+				char l = s[left];
+				l++;
+				window[l]--;
+			}
+			res = max(res, right - left);
+		}
+		return res;
+	}
 };
 
 int main() {
-  Rectangle r;
-  Rectangle *p = new Rectangle();
-  r.length = 10;
-  r.breath = 299;
-  p->breath = 10;
-  p->length = 2999;
-  cout << p->perimeter() << endl;
-  cout << r.area() << endl;
-  cout << r.perimeter() << endl;
-  cout << &r << endl;
-  cout << p << endl;
+
+	Solution s;
+	s.lengthOfLongestSubstring("abcabcbb");
 
 }
