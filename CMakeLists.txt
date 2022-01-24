@@ -3,6 +3,9 @@ project(projects)
 
 set(CMAKE_CXX_STANDARD 14)
 
-
-
-add_executable(projects main.cpp Solution.cpp Solution.h TwentyNine/Solution.cpp twenty/Solution.cpp twenty/Solution.h twentyOne/Solution.cpp twentyOne/Solution.h twentyTwo/Solution.cpp twentyTwo/Solution.h)
+file (GLOB files *.cpp */*.cpp */*/*.cpp)
+foreach (file ${files})
+    string(REGEX REPLACE ".+/(.+)\\..*" "\\1" exe ${file})
+    add_executable (${exe} ${file})
+    message (\ \ \ \ --\ src/${exe}.cpp\ will\ be\ compiled\ to\ bin/${exe})
+endforeach ()
